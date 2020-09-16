@@ -8,3 +8,6 @@ def index(request):
         "entries": util.list_entries()
     })
 
+def Title(request, name):
+#This bit is broken
+    return render(request, f"/entries/{name}")
