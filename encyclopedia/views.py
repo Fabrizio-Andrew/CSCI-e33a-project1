@@ -8,6 +8,9 @@ def index(request):
         "entries": util.list_entries()
     })
 
+#This function takes the name from the url string, invokes the Entry.html format, and requests the specific entry.
 def Title(request, name):
-#This bit is broken
-    return render(request, f"/entries/{name}")
+    return render(request, "encyclopedia/Entry.html", {
+        "entry": util.get_entry(name),
+        "name": name
+    })

@@ -1,0 +1,17 @@
+{% extends "encyclopedia/layout.html" %}
+
+<!--This page sets up the Layout for Entries-->
+
+{% block title %}
+    Encyclopedia -
+{% endblock %}
+
+{% block body %}
+
+<!--TO-DO: this h1 still displays even if the entry isn't found.-->
+    <h1>{{ name }}</h1>
+
+    {{ entry }}
+
+
+{% endblock %}

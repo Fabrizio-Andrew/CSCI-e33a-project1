@@ -9,8 +9,8 @@
 
     <ul>
         {% for entry in entries %}
-<!-- Make these list items into hyperlinks -->
-            <li>{{ entry }}</li>
+<!--List item hyperlinks point to /{entry} URL & views.title(), which points to Entry.html and util.get_entry().-->
+            <li><a href="{{ entry }}">{{ entry }}</a></li>
         {% endfor %}
     </ul>
 
