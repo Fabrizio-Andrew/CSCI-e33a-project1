@@ -1,0 +1,21 @@
+{% extends "encyclopedia/layout.html" %}
+
+<!--This page handles my search results-->
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block body %}
+
+<!--TO-DO: this h1 still displays even if the entry isn't found.-->
+    <h1>Search Results</h1>
+
+    <ul>
+        {% for entry in results %}
+            <li>{{ entry }}</li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}
