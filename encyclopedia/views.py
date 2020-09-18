@@ -24,9 +24,6 @@ def search(request):
         results = []
         for entry in util.list_entries():
             if re.search(keyword, entry, re.IGNORECASE):
-                print(f"Match object = {re.search(keyword, entry, re.IGNORECASE)}")
-                results.append(entry)
-            print(f"results = {results}")
         return render(request, "encyclopedia/results.html", {
             "results": results
         })
@@ -35,3 +32,19 @@ def search(request):
             "entry": util.get_entry(keyword),
             "name": keyword
         })
+
+
+# THIS IS THE BETTER WAY
+#def search(request):
+#    try:
+#        f = default_storage.open(f"entries/{title}.md")
+#        return f.read().decode("utf-8")
+#    except FileNotFoundError:
+#        results = []
+#        for entry in util.list_entries():
+#            if re.search(keyword, entry, re.IGNORECASE):
+#        return render(request, "encyclopedia/results.html", {
+#            "results": results
+#        })
+
+#        return "The requested page was not found"
