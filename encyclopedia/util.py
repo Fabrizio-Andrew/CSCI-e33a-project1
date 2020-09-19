@@ -33,7 +33,6 @@ def save_entry(title, content):
             "name": title
         }
 
-
 def get_entry(title):
     """
     Retrieves an encyclopedia entry by its title. If no such
@@ -45,3 +44,12 @@ def get_entry(title):
         return {'content': f, 'ExactMatch': True}
     except FileNotFoundError:
         return {'content': "ERROR: The requested page was not found.", 'ExactMatch': False}
+
+def overwrite_entry(name, content):
+# This function allows the client to overwrite an existing entry with info submited from edit.html.
+    filename = f"entries/{name}.md"
+    if default_storage.exists(filename):
+        default_storage.delete(filename)
+        default_storage.save(filename, ContentFile(content))
+    else:
+        return 'File Not Found'

@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from . import util
 import re
-from django.core.files.storage import default_storage
 
 
 def index(request):
@@ -41,10 +40,30 @@ def create(request):
     return render(request, "encyclopedia/create.html")
 
 # This function calls util.save_entry and renders the results in an Entry.html template.
-# util.save_entry runs the check to see if the entry exists.
+# util.save_entry runs the check to see if the entry already exists.
 def new(request):
-    response = util.save_entry(request.POST['title'], request.POST['content'])
+    name = request.POST['title']
+    util.save_entry(name, request.POST['content'])
+    x = util.get_entry(name)
     return render(request, "encyclopedia/Entry.html", {
-        "entry": response.get("entry"),
-        "name": response.get("name")
+        "entry": util.get_entry(name).get('content'),
+        "name": name
+        })
+
+def edit(request):
+    name = request.GET['name']
+    return render(request, "encyclopedia/edit.html", {
+        "entry": util.get_entry(name).get('content'),
+        "name": name
+    })
+
+def overwrite(request):
+    print(f"LOOK AT THIS ==> {request.POST}")
+    name = request.POST['name']
+    content = request.POST['content']
+    util.overwrite_entry(name, content)
+    print('I am tired')
+    return render(request, "encyclopedia/Entry.html", {
+        "entry": util.get_entry(name).get('content'),
+        "name": name
         })

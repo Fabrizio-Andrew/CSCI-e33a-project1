@@ -1,0 +1,25 @@
+{% extends "encyclopedia/layout.html" %}
+
+<!--This page handles the Create New page-->
+
+{% block title %}
+    Edit {{ name }}
+{% endblock %}
+
+{% block body %}
+
+
+    <h1>{{ name }}</h1>
+
+<!--TO-DO: The style here is absolutely horrible.-->
+    <div class='form_container'>
+      <form class='editor' action='{% url "overwrite" %}' method="post">
+        {% csrf_token %}
+        <input type='hidden' name='name' value='{{ name }}'>
+        <input class='content_entry' type='textarea' name='content' value='{{ entry }}'>
+        <button type='submit' value='Save'>
+      </form>
+    <div>
+
+
+{% endblock %}

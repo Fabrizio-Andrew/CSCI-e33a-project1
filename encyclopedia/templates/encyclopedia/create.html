@@ -12,11 +12,11 @@
     <h1>Create New Page</h1>
 
 <!--TO-DO: The style here is absolutely horrible.-->
-    <div>
-      <form action='{% url "new" %}' method="post">
+    <div class='form_container'>
+      <form class='editor' action='{% url "new" %}' method="post">
         {% csrf_token %}
-        <input type='text' name='title'>
-        <input type='textarea' name='content'>
+        <input class='title' type='text' name='title' Placeholder='Enter Title'>
+        <input class='content_entry' type='textarea' name='content' Placeholder='Enter Content'>
         <button type='submit'>
       </form>
     <div>

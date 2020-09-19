@@ -12,6 +12,10 @@
     <h1>{{ name }}</h1>
 
     {{ entry }}
+    <form action='{% url "edit" %}' method="get">
+      <input type='hidden' value='{{ name }}' name='name'>
+      <input type='submit' Value='Edit' name='Edit'>
+    </form>
 
 
 {% endblock %}
