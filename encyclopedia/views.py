@@ -9,18 +9,18 @@ def index(request):
         "entries": util.list_entries()
     })
 
-# This function takes the name from the url string, invokes the Entry.html format, and requests the specific entry from a python dict returned by util.get_entry.
 def title(request, name):
+# This function takes the name from the url string, invokes the Entry.html format, and requests the specific entry from a python dict returned by util.get_entry.
     x = util.get_entry(name)
     return render(request, "encyclopedia/Entry.html", {
         "entry": x.get('content'),
         "name": name
     })
 
+def search(request):
 # This function supports the search feature.  It determines if an exact match exists via an "ExactMatch" value I added to util.get_entry.
 # If an exact match exists, the function directs client to that entry.  If client search query only matches a substring, it provides a list of those results.
 # TO-DO: Gracefully manage situation with 0 results.
-def search(request):
     keyword = request.POST['q']
     if util.get_entry(keyword).get('ExactMatch') == True: # Check for match
         return render(request, "encyclopedia/entry.html", { # Get the entry html template
@@ -36,13 +36,13 @@ def search(request):
             "results": results
             })
 
-# This function just catches the redirect from urls.py and renders the create.html page.
 def create(request):
+# This function just catches the redirect from urls.py and renders the create.html page.
     return render(request, "encyclopedia/create.html")
 
+def new(request):
 # This function calls util.save_entry and renders the results in an Entry.html template.
 # util.save_entry runs the check to see if the entry already exists.
-def new(request):
     name = request.POST['title']
     util.save_entry(name, request.POST['content'])
     x = util.get_entry(name)
@@ -52,6 +52,7 @@ def new(request):
         })
 
 def edit(request):
+# This function calls util.get_entry and serves the entry to the pre-filled field on edit.html.
     name = request.GET['name']
     return render(request, "encyclopedia/edit.html", {
         "entry": util.get_entry(name).get('content'),
@@ -59,19 +60,19 @@ def edit(request):
     })
 
 def overwrite(request):
-    print(f"LOOK AT THIS ==> {request.POST}")
+# This function calls util.overwrite_entry to save the client's data from edit.html over the existing file.
+# Next, it calls util.get_entry to serve the newly-saved entry content to the Entry.html template.
     name = request.POST['name']
     content = request.POST['content']
     util.overwrite_entry(name, content)
-    print('I am tired')
     return render(request, "encyclopedia/Entry.html", {
         "entry": util.get_entry(name).get('content'),
         "name": name
         })
 
 def random_page(request):
+# This function selects a random entry from util.list_entries and serves the content to the entry.html template.
     name= random.choice(util.list_entries())
-    print (f"*******HERE IT IS ==>{name}")
     return render(request, "encyclopedia/Entry.html", {
         "entry": util.get_entry(name).get('content'),
         "name": name
