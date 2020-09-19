@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from . import util
 import re
+import random
 
 
 def index(request):
@@ -63,6 +64,14 @@ def overwrite(request):
     content = request.POST['content']
     util.overwrite_entry(name, content)
     print('I am tired')
+    return render(request, "encyclopedia/Entry.html", {
+        "entry": util.get_entry(name).get('content'),
+        "name": name
+        })
+
+def random_page(request):
+    name= random.choice(util.list_entries())
+    print (f"*******HERE IT IS ==>{name}")
     return render(request, "encyclopedia/Entry.html", {
         "entry": util.get_entry(name).get('content'),
         "name": name
