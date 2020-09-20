@@ -2,6 +2,7 @@ from django.shortcuts import render
 from . import util
 import re
 import random
+import markdown2
 
 
 def index(request):
@@ -11,9 +12,8 @@ def index(request):
 
 def title(request, name):
 # This function takes the name from the url string, invokes the Entry.html format, and requests the specific entry from a python dict returned by util.get_entry.
-    x = util.get_entry(name)
     return render(request, "encyclopedia/Entry.html", {
-        "entry": x.get('content'),
+        "entry": markdown2.markdown(util.get_entry(name).get('content')),
         "name": name
     })
 
@@ -22,16 +22,16 @@ def search(request):
 # If an exact match exists, the function directs client to that entry.  If client search query only matches a substring, it provides a list of those results.
 # TO-DO: Gracefully manage situation with 0 results.
     keyword = request.POST['q']
-    if util.get_entry(keyword).get('ExactMatch') == True: # Check for match
-        return render(request, "encyclopedia/entry.html", { # Get the entry html template
-            "entry": util.get_entry(keyword).get('content'), # Get entry text from util.views dict.
+    if util.get_entry(keyword).get('ExactMatch') == True:
+        return render(request, "encyclopedia/entry.html", {
+            "entry": markdown2.markdown(util.get_entry(keyword).get('content')),
             "name": keyword
         })
     else:
         results = []
-        for entry in util.list_entries(): # cycles through util.list_entries().
-            if re.search(keyword, entry, re.IGNORECASE):  # Looks for 'q' substring
-                results.append(entry)  # if substring found, adds to results list
+        for entry in util.list_entries():
+            if re.search(keyword, entry, re.IGNORECASE):
+                results.append(entry)
         return render(request, "encyclopedia/results.html", {
             "results": results
             })
@@ -45,9 +45,8 @@ def new(request):
 # util.save_entry runs the check to see if the entry already exists.
     name = request.POST['title']
     util.save_entry(name, request.POST['content'])
-    x = util.get_entry(name)
     return render(request, "encyclopedia/Entry.html", {
-        "entry": util.get_entry(name).get('content'),
+        "entry": markdown2.markdown(util.get_entry(name).get('content')),
         "name": name
         })
 
@@ -66,7 +65,7 @@ def overwrite(request):
     content = request.POST['content']
     util.overwrite_entry(name, content)
     return render(request, "encyclopedia/Entry.html", {
-        "entry": util.get_entry(name).get('content'),
+        "entry": markdown2.markdown(util.get_entry(name).get('content')),
         "name": name
         })
 
@@ -74,6 +73,6 @@ def random_page(request):
 # This function selects a random entry from util.list_entries and serves the content to the entry.html template.
     name= random.choice(util.list_entries())
     return render(request, "encyclopedia/Entry.html", {
-        "entry": util.get_entry(name).get('content'),
+        "entry": markdown2.markdown(util.get_entry(name).get('content')),
         "name": name
         })
