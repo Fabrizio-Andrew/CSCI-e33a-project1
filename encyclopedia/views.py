@@ -40,13 +40,15 @@ def create(request):
 # This function just catches the redirect from urls.py and renders the create.html page.
     return render(request, "encyclopedia/create.html")
 
+
+#TO-DO: Work on this error handling...
 def new(request):
 # This function calls util.save_entry and renders the results in an Entry.html template.
 # util.save_entry runs the check to see if the entry already exists.
     name = request.POST['title']
-    util.save_entry(name, request.POST['content'])
+    submission = util.create_entry(name, request.POST['content'])
     return render(request, "encyclopedia/Entry.html", {
-        "entry": markdown2.markdown(util.get_entry(name).get('content')),
+        "entry": markdown2.markdown(submission.get('entry')),
         "name": name
         })
 

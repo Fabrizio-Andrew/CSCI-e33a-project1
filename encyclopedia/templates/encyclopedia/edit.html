@@ -1,6 +1,6 @@
 {% extends "encyclopedia/layout.html" %}
 
-<!--This page handles the Create New page-->
+<!--This page handles edits to existing entries-->
 
 {% block title %}
     Edit {{ name }}
@@ -8,14 +8,14 @@
 
 {% block body %}
 
-<!--TO-DO: The style here is absolutely horrible.-->
-<!--TO-DO: Inputs are screwing up the markdown for headers, etc.-->
+  <h1>Edit: {{ name }}</h1>
     <div class='form_container'>
       <form class='editor' action='{% url "overwrite" %}' method="post">
         {% csrf_token %}
         <input type='hidden' name='name' value='{{ name }}'>
-        <input class='content_entry' type='textarea' name='content' value='{{ entry }}'>
-        <button type='submit' value='Save'>
+          <!--Hidden field holds & submits the original entry's name-->
+        <textarea name='content'>{{ entry }}</textarea>
+        <input type='submit' value='Save'>
       </form>
     <div>
 

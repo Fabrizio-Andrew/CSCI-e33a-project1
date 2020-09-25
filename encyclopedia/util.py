@@ -13,7 +13,7 @@ def list_entries():
         for filename in filenames if filename.endswith(".md")))
 
 
-def save_entry(title, content):
+def create_entry(title, content):
     """
     Saves an encyclopedia entry, given its title and Markdown
     content. If an existing entry with the same title already exists,
@@ -24,7 +24,7 @@ def save_entry(title, content):
     if default_storage.exists(filename):
         return {
             "entry": f'A page already exists for "{title}."',
-            "name": "ERROR"
+            "name": "ERROR: Entry already exists"
         }
     else:
         default_storage.save(filename, ContentFile(content))
@@ -40,8 +40,8 @@ def get_entry(title):
     """
 # Edited to return python dict including encyclopedia entry and an 'ExactMatch' flag.
     try:
-        f = default_storage.open(f"entries/{title}.md").read().decode("utf-8")
-        return {'content': f, 'ExactMatch': True}
+        content = default_storage.open(f"entries/{title}.md").read().decode("utf-8")
+        return {'content': content, 'ExactMatch': True}
     except FileNotFoundError:
         return {'content': "ERROR: The requested page was not found.", 'ExactMatch': False}
 

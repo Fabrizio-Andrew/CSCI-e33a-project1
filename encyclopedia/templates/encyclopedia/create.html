@@ -17,8 +17,8 @@
       <form class='editor' action='{% url "new" %}' method="post">
         {% csrf_token %}
         <input class='title' type='text' name='title' Placeholder='Enter Title'>
-        <input class='content_entry' type='textarea' name='content' Placeholder='Enter Markdown Content'>
-        <button type='submit'>
+        <textarea name='content' Placeholder='Enter Markdown Content'></textarea>
+        <input type='submit'>
       </form>
     <div>
 
