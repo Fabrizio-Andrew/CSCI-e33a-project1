@@ -8,11 +8,8 @@
 
 {% block body %}
 
-
     <h1>Create New Page</h1>
-
-<!--TO-DO: The style here is absolutely horrible.-->
-<!--TO-DO: Inputs are screwing up the markdown for headers, etc.-->
+    
     <div class='form_container'>
       <form class='editor' action='{% url "new" %}' method="post">
         {% csrf_token %}

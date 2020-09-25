@@ -20,7 +20,6 @@ def title(request, name):
 def search(request):
 # This function supports the search feature.  It determines if an exact match exists via an "ExactMatch" value I added to util.get_entry.
 # If an exact match exists, the function directs client to that entry.  If client search query only matches a substring, it provides a list of those results.
-# TO-DO: Gracefully manage situation with 0 results.
     keyword = request.POST['q']
     if util.get_entry(keyword).get('ExactMatch') == True:
         return render(request, "encyclopedia/entry.html", {
