@@ -11,7 +11,9 @@
     {{ entry|safe }}
     <form action='{% url "edit" %}' method="get">
       <input type='hidden' value='{{ name }}' name='name'>
+    {% if name != 'ERROR' %}
       <input type='submit' Value='Edit' name='Edit'>
+    {% endif %}
     </form>
 
 

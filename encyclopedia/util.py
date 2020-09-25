@@ -23,8 +23,8 @@ def create_entry(title, content):
     filename = f"entries/{title}.md"
     if default_storage.exists(filename):
         return {
-            "entry": f'A page already exists for "{title}."',
-            "name": "ERROR: Entry already exists"
+            "entry": f' **ERROR:** A page already exists for **{title}.**',
+            "name": "ERROR"
         }
     else:
         default_storage.save(filename, ContentFile(content))
