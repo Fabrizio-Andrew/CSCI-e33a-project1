@@ -12,10 +12,14 @@
     <div class='form_container'>
       <form class='editor' action='{% url "overwrite" %}' method="post">
         {% csrf_token %}
+        <!--Hidden field holds & submits the original entry's name-->
         <input type='hidden' name='name' value='{{ name }}'>
-          <!--Hidden field holds & submits the original entry's name-->
-        <textarea name='content'>{{ entry }}</textarea>
-        <input type='submit' value='Save'>
+        <div>
+          <textarea style='height: 500px' name='content'>{{ entry }}</textarea>
+        </div>
+        <div>
+          <input type='submit' value='Save'>
+        </div>
       </form>
     <div>
 

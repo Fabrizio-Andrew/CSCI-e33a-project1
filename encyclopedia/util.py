@@ -13,7 +13,7 @@ def list_entries():
         for filename in filenames if filename.endswith(".md")))
 
 
-def create_entry(title, content):
+def save_entry(title, content):
     """
     Saves an encyclopedia entry, given its title and Markdown
     content. If an existing entry with the same title already exists,
@@ -38,15 +38,15 @@ def get_entry(title):
     Retrieves an encyclopedia entry by its title. If no such
     entry exists, the function returns None.
     """
-# Edited to return python dict including encyclopedia entry and an 'ExactMatch' flag.
+# Edited to return python dict including encyclopedia entry and an 'ExactMatch' flag -which indicates whether or not the search term found an exact match.
     try:
         content = default_storage.open(f"entries/{title}.md").read().decode("utf-8")
-        return {'content': content, 'ExactMatch': True}
+        return {'content': content, 'name': title, 'ExactMatch': True}
     except FileNotFoundError:
-        return {'content': "ERROR: The requested page was not found.", 'ExactMatch': False}
+        return {'content': "**ERROR:** The requested page was not found.", 'name': 'ERROR', 'ExactMatch': False}
 
 def overwrite_entry(name, content):
-# This function allows the client to overwrite an existing entry with info submited from edit.html.
+# Overwrites an existing entry with updated data submitted from edit.html.
     filename = f"entries/{name}.md"
     if default_storage.exists(filename):
         default_storage.delete(filename)

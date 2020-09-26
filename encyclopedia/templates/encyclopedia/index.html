@@ -9,9 +9,14 @@
 
     <ul>
         {% for entry in entries %}
-<!--List item hyperlinks point to /{entry} URL & views.title(), which points to Entry.html and util.get_entry().-->
-            <li><a href="{{ entry }}">{{ entry }}</a></li>
+<!--li hyperlinks point to wiki/{entry} URL -> views.title() -> util.get_entry() -> Entry.html.
+    (2nd spec) -->
+            <li><a href="wiki/{{ entry }}">{{ entry }}</a></li>
         {% endfor %}
     </ul>
+
+<div>
+  Note: The "ReadMe" entry contains of explanation of how each spec was implemented.
+</div>
 
 {% endblock %}

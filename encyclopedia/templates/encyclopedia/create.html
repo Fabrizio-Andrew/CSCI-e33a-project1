@@ -1,6 +1,6 @@
 {% extends "encyclopedia/layout.html" %}
 
-<!--This page handles the Create New page-->
+<!--This page handles the Create New page. (Fourth spec)-->
 
 {% block title %}
     Create New Entry
@@ -9,13 +9,19 @@
 {% block body %}
 
     <h1>Create New Page</h1>
-    
-    <div class='form_container'>
-      <form class='editor' action='{% url "new" %}' method="post">
+
+    <div>
+      <form class='editor' action='{% url "save" %}' method='post'>
         {% csrf_token %}
-        <input class='title' type='text' name='title' Placeholder='Enter Title'>
-        <textarea name='content' Placeholder='Enter Markdown Content'></textarea>
-        <input type='submit'>
+        <div>
+          <input class='title' type='text' name='title' Placeholder='Enter Title'>
+        </div>
+        <div>
+          <textarea style='height: 500px' name='content' Placeholder='Enter Markdown Content'></textarea>
+        </div
+        <div>
+          <input type='submit'>
+        </div>
       </form>
     <div>
 

@@ -11,6 +11,9 @@
     {{ entry|safe }}
     <form action='{% url "edit" %}' method="get">
       <input type='hidden' value='{{ name }}' name='name'>
+
+    <!--Edit button supports fifth spec.
+    It doesn't display if the page is rendered with an ERROR instead of an entry.-->
     {% if name != 'ERROR' %}
       <input type='submit' Value='Edit' name='Edit'>
     {% endif %}

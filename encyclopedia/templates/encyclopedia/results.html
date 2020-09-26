@@ -1,6 +1,6 @@
 {% extends "encyclopedia/layout.html" %}
 
-<!--This page handles my search results-->
+<!--This page handles my search results. (Third spec)-->
 
 {% block title %}
     Search Results
@@ -10,12 +10,14 @@
 
 
     <h1>Search Results</h1>
-    
+
 <!--This if statement displays results or "no results found".-->
     {% if results %}
       <ul>
         {% for entry in results %}
-            <li><a href="{{ entry }}">{{ entry }}</a></li>
+<!--li hyperlinks point to wiki/{{entry}} -> views.title() -> util.get_entry() -> Entry.html.
+    (same as clicking link from index.html.) -->
+            <li><a href="wiki/{{ entry }}">{{ entry }}</a></li>
         {% endfor %}
       </ul>
     {% else %}

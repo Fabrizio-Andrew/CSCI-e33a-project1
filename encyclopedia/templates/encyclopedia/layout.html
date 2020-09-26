@@ -23,6 +23,7 @@
                     <a href="{% url 'create' %}">Create New Page</a>
                 </div>
                 <div>
+                    <!--pathing: 'random' url -> views.random_page -> util.get_entry -> entry.html -->
                     <a href="{% url 'random' %}">Random Page</a>
                 </div>
                 {% block nav %}
